@@ -1,28 +1,50 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Hank Quinlan, Horrible Cop</title>
+		<meta charset="utf-8">
+		<title>Test 1 for 3d model</title>
+		<style>
+			body { margin: 0; }
+		</style>
 	</head>
 	<body>
-		<nav>
-    		<ul>
-        		<li><a href="/">Home</a></li>
-	        	<li><a href="/about">About</a></li>
-        		<li><a href="/cv">CV</a></li>
-        		<li><a href="/blog">Blog</a></li>
-    		</ul>
-		</nav>
-		<div class="container">
-    		<div class="blurb">
-        		<h1>Hi there, I'm Hank Quinlan!</h1>
-				<p>I'm best known as the horrible cop from <em>A Touch of Evil</em> Don't trust me. <a href="/about">Read more about my life...</a></p>
-    		</div><!-- /.blurb -->
-		</div><!-- /.container -->
-		<footer>
-    		<ul>
-        		<li><a href="mailto:hankquinlanhub@gmail.com">email</a></li>
-        		<li><a href="https://github.com/hankquinlan">github.com/hankquinlan</a></li>
-			</ul>
-		</footer>
+		<script src="js/three.js"></script>
+    <script src="js/WebGL.js"></script>
+    <script type="module" src="js/jsm/loaders/GLTFLoader.js"></script>
+
+		<script>
+      if ( WEBGL.isWebGLAvailable() ) {
+        // Initiate function or other initializations here
+        import { GLTFLoader } from 'js/jsm/loaders/GLTFLoader.js';
+
+        const scene = new THREE.Scene();
+  			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+  			const renderer = new THREE.WebGLRenderer();
+  			renderer.setSize( window.innerWidth, window.innerHeight );
+  			document.body.appendChild( renderer.domElement );
+
+  			const threedmodelglb = new GLTFLoader();
+
+        threedmodelglb.load("3Dmodel.glb", function (tempmodel) {
+          scene.add(tempmodel.scene);
+        }, undefined, function (terror) {
+          console.error(terror);
+        });
+
+
+  			camera.position.z = 5;
+
+  			const animate = function () {
+  				requestAnimationFrame( animate );
+
+  				renderer.render( scene, camera );
+  			};
+        animate();
+      } else {
+        const warning = WEBGL.getWebGLErrorMessage();
+        document.getElementById( 'container' ).appendChild( warning );
+      }
+		</script>
 	</body>
 </html>
