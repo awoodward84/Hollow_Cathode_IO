@@ -11,12 +11,12 @@
 
 		<script type="module">
 
-			import { WEBGL } from "js/WebGL.js";
+			import { WEBGL } from "/js/WebGL.js";
 
     	if ( WEBGL.isWebGLAvailable() ) {
         // Initiate function or other initializations here
-				import * as THREE from "js/three.module.js";
-        import { GLTFLoader } from "js/jsm/loaders/GLTFLoader.js";
+				import * as THREE from "/js/three.module.js";
+        import { GLTFLoader } from "/js/jsm/loaders/GLTFLoader.js";
 
         const scene = new THREE.Scene();
   			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
