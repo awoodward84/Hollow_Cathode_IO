@@ -90,4 +90,4 @@ class WEBGL {
 
 }
 
-//export { WEBGL };
+export { WEBGL };
