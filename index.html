@@ -15,7 +15,7 @@
 
     	if ( WEBGL.isWebGLAvailable() ) {
         // Initiate function or other initializations here
-				import * as THREE from "/js/three.module.js";
+				var THREE =  import("/js/three.module.js");
         import { GLTFLoader } from "/js/jsm/loaders/GLTFLoader.js";
 
         const scene = new THREE.Scene();
