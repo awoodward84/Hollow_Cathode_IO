@@ -16,6 +16,8 @@
     	if ( WEBGL.isWebGLAvailable() ) {
         // Initiate function or other initializations here
 				var THREE =  import("/js/three.module.js");
+
+				import { OrbitControls } from "js/jsm/controls/OrbitControls.js";
         import { GLTFLoader } from "/js/jsm/loaders/GLTFLoader.js";
 
         const scene = new THREE.Scene();
@@ -35,7 +37,25 @@
           console.error(terror);
         });
 
+				const OControls = new OrbitControls(camera, renderer.domElement);
+				OControls.addEventListener('change', animate);
+				OControls.minDistance = 2;
+				OControls.maxDistance = 20;
+				OControls.target.set(0, 0, -1);
+				OControls.update();
+
+				window.addEventListener('resize', onWindowResize);
+
 				document.body.appendChild( renderer.domElement );
+
+				function onWindowResize() {
+					camera.aspect = window.innerWidth / window.innerHeight;
+					camera.updateProjectionMatrix();
+
+					renderer.setSize( window.innerWidth, window.innerHeight );
+
+					animate();
+				}
 
   			const animate = function () {
   				//requestAnimationFrame( animate );
