@@ -8,7 +8,7 @@
 		</style>
 	</head>
 	<body>
-
+		<button type="button" id="Play"> Play </button>
 		<script type="module">
 
 			import { WEBGL } from "/js/WebGL.js";
@@ -34,7 +34,7 @@
 					//camera.position.z = 5;
 					camera.position.set(5, 5, 5);
 
-	  			renderer = new THREE.WebGLRenderer();
+	  			renderer = new THREE.WebGLRenderer( {antialias: true} );
 					renderer.setPixelRatio(window.devicePixelRatio);
 	  			renderer.setSize( window.innerWidth, window.innerHeight );
 
@@ -43,6 +43,7 @@
 
 	        threedmodelglb.load("3Dmodel.glb", function (tempmodel) {
 	          scene.add(tempmodel.scene);
+						scene.backround = new THREE.Color(0xff0000);
 						animate();
 	        }, undefined, function (terror) {
 	          console.error(terror);
