@@ -13,7 +13,7 @@
 
 			import { WEBGL } from "/js/WebGL.js";
 
-			import * as THREE from "/js/three.module.js";
+			var THREE = import("/js/three.module.js");
 
 			import { OrbitControls } from "/js/jsm/controls/OrbitControls.js";
 			import { GLTFLoader } from "/js/jsm/loaders/GLTFLoader.js";
@@ -66,7 +66,7 @@
   				//requestAnimationFrame( animate );
 
   				renderer.render( scene, camera );
-  			};    
+  			};
       } else {
         const warning = WEBGL.getWebGLErrorMessage();
         document.getElementById( 'container' ).appendChild( warning );
