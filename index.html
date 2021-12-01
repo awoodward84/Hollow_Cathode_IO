@@ -15,7 +15,7 @@
 
 			import * as THREE from "/js/three.module.js";
 
-			import { OrbitControls } from "js/jsm/controls/OrbitControls.js";
+			import { OrbitControls } from "/js/jsm/controls/OrbitControls.js";
 			import { GLTFLoader } from "/js/jsm/loaders/GLTFLoader.js";
 
     	if ( WEBGL.isWebGLAvailable() ) {
@@ -66,7 +66,7 @@
         animate();
       } else {
         const warning = WEBGL.getWebGLErrorMessage();
-        //document.getElementById( 'container' ).appendChild( warning );
+        document.getElementById( 'container' ).appendChild( warning );
       }
 		</script>
 
