@@ -22,35 +22,44 @@
     	if ( WEBGL.isWebGLAvailable() ) {
         // Initiate function or other initializations here
 
-        const scene = new THREE.Scene();
-  			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-				//camera.position.z = 5;
-				camera.position.set(5, 5, 5);
+				let camera, scene, renderer;
 
-  			const renderer = new THREE.WebGLRenderer();
-				renderer.setPixelRatio(window.devicePixelRatio);
-  			renderer.setSize( window.innerWidth, window.innerHeight );
+				init();
+				animate();
+
+				function init() {
+
+					scene = new THREE.Scene();
+	  			camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+					//camera.position.z = 5;
+					camera.position.set(5, 5, 5);
+
+	  			renderer = new THREE.WebGLRenderer();
+					renderer.setPixelRatio(window.devicePixelRatio);
+	  			renderer.setSize( window.innerWidth, window.innerHeight );
 
 
-  			const threedmodelglb = new GLTFLoader().setPath("3Dmodel.glb");
+	  			const threedmodelglb = new GLTFLoader();
 
-        threedmodelglb.load("3Dmodel.glb", function (tempmodel) {
-          scene.add(tempmodel.scene);
-					animate();
-        }, undefined, function (terror) {
-          console.error(terror);
-        });
+	        threedmodelglb.load("3Dmodel.glb", function (tempmodel) {
+	          scene.add(tempmodel.scene);
+						animate();
+	        }, undefined, function (terror) {
+	          console.error(terror);
+	        });
 
-				const OControls = new OrbitControls(camera, renderer.domElement);
-				OControls.addEventListener('change', animate);
-				OControls.minDistance = 2;
-				OControls.maxDistance = 20;
-				OControls.target.set(0, 0, -1);
-				OControls.update();
+					const OControls = new OrbitControls(camera, renderer.domElement);
+					OControls.addEventListener('change', animate);
+					OControls.minDistance = 2;
+					OControls.maxDistance = 20;
+					OControls.target.set(0, 0, -1);
+					OControls.update();
 
-				window.addEventListener('resize', onWindowResize);
+					window.addEventListener('resize', onWindowResize);
 
-				document.body.appendChild( renderer.domElement );
+					document.body.appendChild( renderer.domElement );
+
+				}
 
 				function onWindowResize() {
 					camera.aspect = window.innerWidth / window.innerHeight;
@@ -61,13 +70,12 @@
 					animate();
 				}
 
-				animate();
-
-  			const animate = function () {
+				function animate () {
   				//requestAnimationFrame( animate );
 
   				renderer.render( scene, camera );
-  			};
+  			}
+
       } else {
         const warning = WEBGL.getWebGLErrorMessage();
         document.getElementById( 'container' ).appendChild( warning );
