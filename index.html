@@ -27,13 +27,15 @@
 				camera.position.set(5, 5, 5);
 
   			const renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio(window.devicePixelRatio);
   			renderer.setSize( window.innerWidth, window.innerHeight );
 
 
-  			const threedmodelglb = new GLTFLoader();
+  			const threedmodelglb = new GLTFLoader().setPath("3Dmodel.glb");
 
         threedmodelglb.load("3Dmodel.glb", function (tempmodel) {
           scene.add(tempmodel.scene);
+					animate();
         }, undefined, function (terror) {
           console.error(terror);
         });
@@ -58,12 +60,13 @@
 					animate();
 				}
 
+				animate();
+
   			const animate = function () {
   				//requestAnimationFrame( animate );
 
   				renderer.render( scene, camera );
-  			};
-        animate();
+  			};    
       } else {
         const warning = WEBGL.getWebGLErrorMessage();
         document.getElementById( 'container' ).appendChild( warning );
