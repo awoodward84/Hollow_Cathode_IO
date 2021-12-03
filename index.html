@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		<button type="button" id="Play"> Play </button>
+		<a href="Test3dJohn.html">View model in ModelViewer</a>
 		<script type="module">
 
 			import { WEBGL } from "/js/WebGL.js";
@@ -44,6 +45,7 @@
 	        threedmodelglb.load("3Dmodel.glb", function (tempmodel) {
 	          scene.add(tempmodel.scene);
 						scene.backround = new THREE.Color(0xff0000);
+						console.log("Inside and at the end of getting/setting the 3d file");
 						animate();
 	        }, undefined, function (terror) {
 	          console.error(terror);
