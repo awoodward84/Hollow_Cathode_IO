@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Test 1 for 3d model</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+		<button type="button" id="Play"> Play </button>
+		<a href="Test3dJohn.html">View model in ModelViewer</a>
+		<script type="module">
+
+			import { WEBGL } from "/js/WebGL.js";
+
+			import * as THREE from "/build/three.module.js";
+			//var THREE = import("/build/three.module.js");
+
+			import { OrbitControls } from "/js/jsm/controls/OrbitControls.js";
+			import { GLTFLoader } from "/js/jsm/loaders/GLTFLoader.js";
+
+    	if ( WEBGL.isWebGLAvailable() ) {
+        // Initiate function or other initializations here
+
+				let camera, scene, renderer;
+
+				init();
+				animate();
+
+				function init() {
+
+					scene = new THREE.Scene();
+	  			camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+					//camera.position.z = 5;
+					camera.position.set(5, 5, 5);
+
+	  			renderer = new THREE.WebGLRenderer( {antialias: true} );
+					renderer.setPixelRatio(window.devicePixelRatio);
+	  			renderer.setSize( window.innerWidth, window.innerHeight );
+
+
+	  			const threedmodelglb = new GLTFLoader();
+
+	        threedmodelglb.load("SER401_Ideas.glb", function (tempmodel) {
+	          scene.add(tempmodel.scene);
+						//scene.backround = new THREE.Color(0xff0000);
+						camera.position.set(tempmodel.camera);
+						console.log("Inside and at the end of getting/setting the 3d file");
+						animate();
+	        }, undefined, function (terror) {
+	          console.error(terror);
+	        });
+
+					const OControls = new OrbitControls(camera, renderer.domElement);
+					OControls.addEventListener('change', animate);
+					OControls.minDistance = 2;
+					OControls.maxDistance = 20;
+					OControls.target.set(0, 0, -1);
+					OControls.update();
+
+					window.addEventListener('resize', onWindowResize);
+
+					document.body.appendChild( renderer.domElement );
+
+				}
+
+				function onWindowResize() {
+					camera.aspect = window.innerWidth / window.innerHeight;
+					camera.updateProjectionMatrix();
+
+					renderer.setSize( window.innerWidth, window.innerHeight );
+
+					animate();
+				}
+
+				function animate () {
+  				//requestAnimationFrame( animate );
+
+  				renderer.render( scene, camera );
+  			}
+
+      } else {
+        const warning = WEBGL.getWebGLErrorMessage();
+        document.getElementById( 'container' ).appendChild( warning );
+      }
+		</script>
+
+	</body>
+
+</html>
